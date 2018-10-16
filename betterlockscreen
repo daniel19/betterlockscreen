@@ -270,6 +270,11 @@ case "$1" in
 	-u | --update)
 		background="$2"
 		shift 2
+        
+        if cmp -s "$background" "$orig_wall"
+        then
+            exit 0;
+        fi
 
 		# default blur level
 		blur_level=1
@@ -361,7 +366,7 @@ case "$1" in
 		echo
 		echo "Caching images for faster screen locking"
 		# resized
-	convert "$resized" -draw "fill rgba(0, 0, 0, 0.4) $rectangles" "$l_resized"
+        convert "$resized" -draw "fill rgba(0, 0, 0, 0.4) $rectangles" "$l_resized"
 
 		# dim
 		convert "$dim" -draw "fill rgba(0, 0, 0, 0.4) $rectangles" "$l_dim"
